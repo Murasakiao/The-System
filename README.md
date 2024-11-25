@@ -7,7 +7,7 @@
 ## 🚀 Features
 
 - **User Registration and Login**: Securely create and access your account.  
-- **Task Management**: Create, edit, and complete tasks (quests) effortlessly.  
+- **Task Management**: Create and complete tasks (quests) effortlessly.  
 - **Gamification**: Earn points, level up, and unlock achievements to stay motivated.  
 - **Achievements System**: Celebrate your milestones with badges and rewards.  
 - **Daily Quests**: Stay consistent with daily tasks tailored to your goals.  
