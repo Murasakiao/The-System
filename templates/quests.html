@@ -1,0 +1,227 @@
+    {% extends "base.html" %}
+    {% block title %}Dashboard - Solo Leveling{% endblock %}
+    {% block content %}
+        <!-- <div class="dashboard-header">
+            <div class="stats-overview">
+                <div class="stat-card">
+                    <div class="stat">
+                        <h2>QUESTS</h2>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+
+        <!-- Daily Quests Section -->
+        <section class="quests-section">
+            <h2>DAILY QUESTS</h2>
+            <div class="quest-grid-active">
+                {% if daily_quests %}
+                    {% if daily_category %}
+                        <div class="quest-space">
+                            [Daily Quest: {{ daily_category.title() }} Training has arrived]
+                        </div>
+                    {% endif %}
+                    
+                    {% if not daily_category.completed %}
+                        {% for quest in daily_quests %}
+                            <div class="quest-item">
+                                <div class="quest-name">{{ quest.name }}</div>
+                                <div class="quest-actions">
+                                    {% if quest.target and quest.unit %}
+                                        <span class="target-unit">
+                                            {% if quest.completed %}
+                                                [{{ quest.target }}/{{ quest.target }}{{ quest.unit }}]
+                                            {% else %}
+                                                [{{ quest.current_count|default(0) }}/{{ quest.target }}{{ quest.unit }}]   
+                                            {% endif %}
+                                        </span>
+                                    {% endif %}
+                                    <form action="{{ url_for('complete_quest', quest_id=quest.id) }}" method="post" class="complete-form">
+                                        <button type="submit" class="complete-button" {% if quest.completed %}disabled{% endif %}>
+                                            {% if quest.completed %}
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                                                    <path d="M20 6L9 17l-5-5"/>
+                                                </svg>
+                                            {% else %}
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                    <rect x="3" y="3" width="20" height="20" rx="2" ry="2"/>
+                                                </svg>
+                                            {% endif %}
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <p class="no-quests">Congratulations! You have completed all daily quests. <br>Click <a href="{{ url_for('dashboard') }}">here</a> to view rewards</p>
+                    {% endif %}
+                {% else %}
+                    <p class="no-quests">No daily quests available at this time.</p>
+                {% endif %}
+            </div>
+            
+            {% if daily_quests %}
+                <div class="daily-quest-footer">
+                    <div>
+                        WARNING: Failure to complete the daily quest will result in an appropriate <span class="warning-label">penalty.</span>
+                    </div>
+                </div>
+            {% endif %}
+        </section>
+
+        <!-- Side Quests Section -->
+        <section class="quests-section">
+            <h2>SIDE QUESTS</h2>
+            <div class="quest-grid-active">
+                {% if active_quests %}
+                    {% for quest in active_quests %}
+                        <div class="quest-card">
+                            <h3>{{ quest.name }}</h3>
+                            {% if quest.description %}
+                                <p>{{ quest.description }}</p>
+                            {% endif %}
+
+                            {% if quest.get_tags() %}
+                                <div class="quest-tags">
+                                    {% for tag in quest.get_tags() %}
+                                        <span class="tag">{{ tag.strip('"') }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                            <div class="quest-footer">
+                                <span class="reward">+{{ quest.reward }} points</span>
+                                <div class="button-group">
+                                    <form action="{{ url_for('delete_quest', quest_id=quest.id) }}" method="post" class="form-inline"
+                                        onsubmit="return confirm('Are you sure you want to delete this quest?');">
+                                        <button class="btn-delete">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                <path d="M3 6h18"></path>
+                                                <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path>
+                                                <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path>
+                                            </svg>
+                                        </button>
+                                    </form>
+                                    <form action="{{ url_for('complete_quest', quest_id=quest.id) }}" method="post" class="form-inline"
+                                        onsubmit="return confirm('Are you honest that you have completed this quest?');">
+                                        <button type="submit" class="btn-complete">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <path d="M20 6L9 17l-5-5"/>
+                                            </svg>
+                                            Complete
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p class="no-quests">No active quests. <a href="{{ url_for('add_quest') }}">Add a new quest!</a></p>
+                {% endif %}
+            </div>
+        </section>
+    </div>
+    {% endblock %}
+
+    {% block scripts %}
+    <script>
+        // Handle flash message dismissal
+        document.querySelectorAll('.flash-close').forEach(button => {
+            button.addEventListener('click', () => {
+                button.closest('.flash-message').remove();
+            });
+        });
+
+        // Add animation class to quest cards when they appear in viewport
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        });
+
+        document.querySelectorAll('.quest-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'all 0.3s ease';
+            observer.observe(card);
+        });
+
+        // Get modal elements
+        const deleteModal = document.getElementById('deleteModal');
+        const deleteForm = document.getElementById('deleteForm');
+        const cancelDelete = document.getElementById('cancelDelete');
+
+        // Show delete confirmation modal
+        function showDeleteModal(questId) {
+            deleteModal.classList.remove('hidden');
+            deleteModal.classList.add('flex');
+            deleteForm.action = `/delete_quest/${questId}`;
+        }
+
+        // Hide delete confirmation modal
+        function hideDeleteModal() {
+            deleteModal.classList.add('hidden');
+            deleteModal.classList.remove('flex');
+        }
+
+        // Add event listeners
+        cancelDelete.addEventListener('click', hideDeleteModal);
+
+        // Close modal when clicking outside
+        deleteModal.addEventListener('click', (e) => {
+            if (e.target === deleteModal) {
+                hideDeleteModal();
+            }
+        });
+
+        // Add keyboard support (Escape key to close modal)
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && !deleteModal.classList.contains('hidden')) {
+                hideDeleteModal();
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const forms = document.querySelectorAll('.complete-form');
+            
+            forms.forEach(form => {
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    fetch(form.action, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            // Get the button and quest item
+                            const button = form.querySelector('button');
+                            const questItem = form.closest('.quest-item');
+                            
+                            // Update the button's SVG to show checkmark
+                            button.innerHTML = `
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                                    <path d="M20 6L9 17l-5-5"/>
+                                </svg>
+                            `;
+                            
+                            // Disable the button
+                            button.disabled = true;
+                            
+                            // Add completed class to quest item
+                            questItem.classList.add('completed');
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+                });
+            });
+        });
+        </script>
+    {% endblock %}

@@ -1,0 +1,43 @@
+[
+    {
+      "quest_name": "Push-Ups",
+      "description": "Do push-ups to improve upper body strength.",
+      "tags": ["fitness", "strength"],
+      "duration": "10 minutes",
+      "difficulty": "medium",
+      "type": "fitness",
+      "goal": "improve strength",
+      "reward": "strength increase"
+    },
+    {
+      "quest_name": "Read a Book",
+      "description": "Read a book about finance to improve your financial literacy.",
+      "tags": ["study", "reading"],
+      "duration": "20 minutes",
+      "difficulty": "easy",
+      "type": "study",
+      "goal": "learn new concept",
+      "reward": "knowledge gain"
+    },
+    {
+      "quest_name": "Morning Run",
+      "description": "Go for a run to improve stamina and cardiovascular health.",
+      "tags": ["fitness", "cardio"],
+      "duration": "30 minutes",
+      "difficulty": "medium",
+      "type": "fitness",
+      "goal": "improve stamina",
+      "reward": "boost in energy"
+    },
+    {
+      "quest_name": "Write Code",
+      "description": "Write code to improve your programming skills and build projects.",
+      "tags": ["programming"],
+      "duration": "45 minutes",
+      "difficulty": "hard",
+      "type": "programming",
+      "goal": "build coding skills",
+      "reward": "coding proficiency"
+    }
+  ]
+  

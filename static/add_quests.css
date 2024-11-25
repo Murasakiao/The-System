@@ -1,0 +1,207 @@
+/* add quest styles [start]*/
+.content {
+    margin-left: 100px; /* Match your sidebar width */
+    /* margin-right: 100px; Match your sidebar width */
+    padding: 2rem;
+    transition: var(--transition);
+}
+
+.quest-header {
+    margin-bottom: 2rem;
+    text-align: center;
+    background: var(--sidebar-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 1px;
+    padding: .5rem;
+    backdrop-filter: blur(10px);
+}
+
+.quest-header h2 {
+    color: var(--secondary-color);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 0rem;
+    font-size: 1.5rem;
+}
+
+/* .cyber-line {
+    height: 2px;
+    background: linear-gradient(90deg,
+        transparent,
+        var(--secondary-color),
+        transparent);
+    margin: 1rem auto;
+    width: 50%;
+    box-shadow: var(--border-glow);
+} */
+
+.form-container {
+    background: var(--sidebar-bg);
+    padding: 2rem;
+    border: 1px solid var(--border-color);
+    border-radius: 1px;
+    backdrop-filter: blur(10px);
+    margin-bottom: 2rem;
+    box-shadow: var(--border-glow);
+}
+
+.quest-form .form-group {
+    margin-bottom: 1.5rem;
+}
+
+.quest-form label {
+    display: block;
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.875rem;
+}
+
+.quest-form input,
+.quest-form textarea,
+.quest-form select {
+    width: 100%;
+    padding: 0.75rem;
+    background: rgba(13, 20, 35, 0.8);
+    border: 1px solid var(--border-color);
+    border-radius: 1px;
+    color: var(--text-primary);
+    transition: var(--transition);
+    font-family: 'Rajdhani', sans-serif;
+}
+
+.quest-form input:focus,
+.quest-form textarea:focus,
+.quest-form select:focus {
+    border-color: var(--secondary-color);
+    box-shadow: var(--border-glow);
+    outline: none;
+    background: rgba(13, 20, 35, 0.9);
+}
+
+.description-header {
+    display: grid;
+    grid-template-columns: auto 1fr auto;  /* Label - space - button */
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+/* Ensure label doesn't wrap and maintains its size */
+.description-header label {
+    white-space: nowrap;
+}
+
+/* Keep the button compact */
+.suggest-btn {
+    height: 24px;
+    padding: 0 0.5rem;
+    font-size: 0.7rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    background: rgba(77, 127, 255, 0.1);
+    color: var(--secondary-color);
+    border: 1px solid var(--border-color);
+    border-radius: 1px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 600;
+    font-family: 'Rajdhani', sans-serif;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.suggest-btn:hover {
+    background: rgba(77, 127, 255, 0.2);
+    border-color: var(--secondary-color);
+    box-shadow: var(--border-glow);
+}
+
+.suggest-btn svg {
+    width: 12px;
+    height: 12px;
+    stroke: currentColor;
+    stroke-width: 2;
+}
+
+.stats-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.form-actions {
+    display: flex;
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.btn-primary {
+    flex: 2;
+    padding: 0.75rem;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: var(--text-primary);
+    border: none;
+    border-radius: 1px;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: var(--transition);
+    font-weight: 600;
+}
+
+.btn-secondary {
+    flex: 1;
+    padding: 0.75rem;
+    background: rgba(77, 127, 255, 0.1);
+    border: 1px solid var(--border-color);
+    border-radius: 1px;
+    color: var(--text-primary);
+    text-decoration: none;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: var(--transition);
+    font-weight: 600;
+}
+
+.btn-primary:hover,
+.btn-secondary:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--border-glow);
+    border-color: var(--secondary-color);
+}
+
+.btn-secondary:hover {
+    background: rgba(77, 127, 255, 0.2);
+}
+
+@media (max-width: 768px) {
+    .content {
+        margin-left: 0;
+        padding: 1rem;
+    }
+    
+    .stats-row {
+        grid-template-columns: 1fr;
+    }
+    
+    .form-actions {
+        flex-direction: column;
+    }
+    
+    .btn-primary,
+    .btn-secondary {
+        width: 100%;
+    }
+    
+    .quest-header,
+    .form-container {
+        padding: 1rem;
+    }
+}
+/* add quest styles [end] */

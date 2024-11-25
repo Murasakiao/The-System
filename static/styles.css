@@ -1,0 +1,821 @@
+/* Enhanced Base Styles */
+:root {
+    --primary-color: #4d7fff;
+    --secondary-color: #00ffff;
+    --background-color: #0a0f1c;
+    --sidebar-bg: rgba(13, 20, 35, 0.95);
+    --content-bg: rgba(13, 20, 35, 0.75);
+    --text-primary: #ffffff;
+    --text-secondary: rgba(255, 255, 255, 0.7);
+    --border-color: rgba(0, 255, 255, 0.1);
+    --border-glow: 0 0 15px rgba(0, 255, 255, 0.2);
+    --success-color: #00ff99;
+    --warning-color: #ffaa00;
+    --danger-color: #ff4444;
+    --transition: all 0.3s ease;
+}
+
+/* Reset & Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Rajdhani', sans-serif;
+    background: linear-gradient(135deg, var(--background-color), #121a2c);
+    color: var(--text-primary);
+    line-height: 1.6;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* Layout Container */
+.app-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+.flash-message {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 1rem; /* Reduced padding */
+    border-radius: 8px;
+    margin: 0.5rem 0; /* Reduced margin */
+    color: white;
+    font-size: 0.9rem; /* Smaller font size */
+    max-width: 300px; /* Optional: Set a max width */
+}
+
+/*  flash message */
+.flash-message.success {
+    background-color: green;
+}
+
+.flash-message.error {
+    background-color: red;
+}
+
+.flash-content {
+    display: flex;
+    align-items: center;
+}
+
+.flash-content svg {
+    width: 16px;  /* Smaller icon size */
+    height: 16px; /* Smaller icon size */
+    margin-right: 0.8rem; /* Adjust space between icon and message */
+}
+
+.flash-close {
+    background: none;
+    border: none;
+    font-size: 1.2rem; /* Smaller close icon */
+    color: white;
+    cursor: pointer;
+}
+
+
+/* Enhanced Sidebar */
+.sidebar {
+    width: 280px;
+    background: var(--sidebar-bg);
+    border-right: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    backdrop-filter: blur(10px);
+    transition: var(--transition);
+    z-index: 1000;
+    position: fixed;
+    height: 100vh;
+    left: 0;
+    top: 0;
+}
+
+.sidebar-header {
+    padding: 2rem 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.avatar {
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    border-radius: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: 600;
+    position: relative;
+}
+
+.avatar-status {
+    position: absolute;
+    bottom: -2px;
+    right: -2px;
+    width: 12px;
+    height: 12px;
+    background: var(--success-color);
+    border: 2px solid var(--sidebar-bg);
+    border-radius: 50%;
+}
+
+.user-info {
+    flex: 1;
+}
+
+.username {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+}
+
+.user-stats {
+    display: flex;
+    gap: 1rem;
+}
+
+.stat {
+    display: flex;
+    flex-direction: column;
+}
+
+.stat .label {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.stat .value {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--secondary-color);
+}
+
+/* Navigation Styles */
+.sidebar-nav {
+    flex: 1;
+    padding: 1.5rem;
+}
+
+.nav-list {
+    list-style: none;
+}
+
+.nav-item {
+    margin-bottom: 0.5rem;
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem 1rem;
+    color: var(--text-primary);
+    text-decoration: none;
+    border-radius: 1px;
+    transition: var(--transition);
+}
+
+.nav-link svg {
+    width: 20px;
+    height: 20px;
+    stroke: currentColor;
+}
+
+.nav-link:hover {
+    background: rgba(77, 127, 255, 0.1);
+    color: var(--secondary-color);
+}
+
+.nav-link.active {
+    background: rgba(77, 127, 255, 0.2);
+    color: var(--secondary-color);
+    border: 1px solid var(--border-color);
+}
+
+/* Sidebar Footer */
+.sidebar-footer {
+    padding: 1.5rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.logout-link {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: var(--text-secondary);
+    text-decoration: none;
+    padding: 0.75rem;
+    border-radius: 1px;
+    transition: var(--transition);
+}
+
+.logout-link:hover {
+    background: rgba(255, 68, 68, 0.1);
+    color: var(--danger-color);
+}
+
+.logout-link svg {
+    width: 20px;
+    height: 20px;
+    stroke: currentColor;
+}
+
+.btn-delete {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: var(--text-secondary);
+    text-decoration: none;
+    padding: 0.75rem;
+    border-radius: 1px;
+    transition: var(--transition);
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-delete:hover {
+    background: rgba(255, 68, 68, 0.1);
+    color: var(--danger-color);
+}
+
+.btn-delete svg {
+    width: 15px;
+    height: 15px;
+    stroke: currentColor;
+}
+
+/* Main Content Area */
+.main-content {
+    flex: 1;
+    margin-left: 280px;
+    padding: 2rem;
+    transition: var(--transition);
+}
+
+.content-wrapper {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* Dashboard Header & Stats */
+.dashboard-header {
+    background: var(--sidebar-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 1px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: var(--border-glow);
+    backdrop-filter: blur(10px);
+}
+
+.stats-overview {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+}
+
+.stat-card {
+    background: rgba(13, 20, 35, 0.8);
+    border: 1px solid var(--border-color);
+    border-radius: 1px;
+    padding: 1.5rem;
+    transition: var(--transition);
+    backdrop-filter: blur(5px);
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--secondary-color);
+    box-shadow: var(--border-glow);
+}
+
+.stat-card .stat {
+    text-align: center;
+}
+
+.stat-card .label {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 0.5rem;
+}
+
+.stat-card .value {
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--secondary-color);
+    text-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+}
+
+/* Achievements Section */
+.achievements-section {
+    background: var(--sidebar-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 1px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    backdrop-filter: blur(10px);
+}
+
+.achievements-section h2 {
+    color: var(--text-primary);
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 0.5rem;
+}
+
+.achievements-list ul {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1rem;
+}
+
+.achievements-list li {
+    background: rgba(77, 127, 255, 0.1);
+    border: 1px solid var(--border-color);
+    border-radius: 1px;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    transition: var(--transition);
+}
+
+.achievements-list li:hover {
+    background: rgba(77, 127, 255, 0.2);
+    border-color: var(--secondary-color);
+    transform: translateX(5px);
+}
+
+/* Quests Sections */
+.quests-section,
+.completed-quests {
+    background: var(--sidebar-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 1px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    backdrop-filter: blur(10px);
+}
+
+.quests-section h2,
+.completed-quests h2 {
+    color: var(--text-primary);
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 0.5rem;
+}
+
+.quest-grid-active {
+    display: grid;
+    grid-template-columns: 1fr; /* One column spanning full width */
+    /* grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); */
+    gap: 1.5rem;
+}
+
+.quest-grid-completed {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.quest-card {
+    background: rgba(13, 20, 35, 0.8);
+    border: 1px solid var(--border-color);
+    border-radius: 1px;
+    padding: 1.5rem;
+    transition: var(--transition);
+    backdrop-filter: blur(5px);
+    display: flex;
+    flex-direction: column;
+}
+
+.quest-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--secondary-color);
+    box-shadow: var(--border-glow);
+}
+
+.quest-card h3 {
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+}
+
+.quest-card p {
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+    flex-grow: 1;
+}
+
+.quest-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 1.2px;
+    transition: all 0.2s ease;
+}
+
+.quest-item:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.quest-name {
+    font-size: 1rem;
+    color: #e6edf3;
+}
+
+.quest-space {
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+}
+
+.quest-target {
+    display: flex;
+    align-items: baseline;
+    gap: 0.25rem;
+    margin-right: 1rem;
+}
+
+.target-number {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #58a6ff;
+}
+
+.target-unit {
+    font-size: 0.875rem;
+    color: #8b949e;
+}
+
+.complete-button {
+    background: transparent;
+    border: none;
+    color: #58a6ff;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 1.5px;
+    transition: all 0.2s ease;
+}
+
+.complete-button:hover {
+    background-color: rgba(88, 166, 255, 0.1);
+}
+
+.daily-quest-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 5.5rem;
+    padding-top: 1rem;
+    /* border-top: 1px solid rgba(255, 255, 255, 0.1); */
+}
+
+.quest-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* margin-top: 5.5rem; */
+    /* padding-top: 1rem; */
+    /* border-top: 1px solid rgba(255, 255, 255, 0.1); */
+}
+
+.warning-message {
+    font-size: 0.875rem;
+    color: #8b949e;
+}
+
+.warning-label {
+    color: #ab1414;
+    font-weight: 600;
+}
+
+.button-group {
+    display: flex;
+    gap: 0.5rem; /* Adds space between the buttons */
+    align-items: center;
+}
+
+.form-inline {
+    display: inline-block; /* Makes forms display inline */
+    margin: 0; /* Removes default form margins */
+}
+
+.reward {
+    color: var(--success-color);
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.btn-complete {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    border: none;
+    border-radius: 2.25px;
+    padding: 0.5rem 1rem;
+    color: var(--text-primary);
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.btn-complete:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px rgba(77, 127, 255, 0.3);
+}
+
+.quest-card.completed {
+    opacity: 0.8;
+}
+
+.completed-badge {
+    background: var(--success-color);
+    color: var(--background-color);
+    padding: 0.25rem 0.75rem;
+    border-radius: 1px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.no-quests {
+    color: var(--text-secondary);
+    text-align: center;
+    padding: 2rem;
+    background: rgba(13, 20, 35, 0.5);
+    border-radius: 1px;
+    border: 1px dashed var(--border-color);
+}
+
+.no-quests a {
+    color: var(--secondary-color);
+    text-decoration: none;
+    font-weight: 600;
+    transition: var(--transition);
+}
+
+.no-quests a:hover {
+    text-shadow: 0 0 10px var(--secondary-color);
+}
+
+/* add quest styles [start]*/
+.content {
+    margin-left: 100px; /* Match your sidebar width */
+    /* margin-right: 100px; Match your sidebar width */
+    padding: 2rem;
+    transition: var(--transition);
+}
+
+.quest-header {
+    margin-bottom: 2rem;
+    text-align: center;
+    background: var(--sidebar-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 1px;
+    padding: .5rem;
+    backdrop-filter: blur(10px);
+}
+
+.quest-header h2 {
+    color: var(--secondary-color);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 0rem;
+    font-size: 1.5rem;
+}
+
+/* .cyber-line {
+    height: 2px;
+    background: linear-gradient(90deg,
+        transparent,
+        var(--secondary-color),
+        transparent);
+    margin: 1rem auto;
+    width: 50%;
+    box-shadow: var(--border-glow);
+} */
+
+.form-container {
+    background: var(--sidebar-bg);
+    padding: 2rem;
+    border: 1px solid var(--border-color);
+    border-radius: 1px;
+    backdrop-filter: blur(10px);
+    margin-bottom: 2rem;
+    box-shadow: var(--border-glow);
+}
+
+.quest-form .form-group {
+    margin-bottom: 1.5rem;
+}
+
+.quest-form label {
+    display: block;
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.875rem;
+}
+
+.quest-form input,
+.quest-form textarea,
+.quest-form select {
+    width: 100%;
+    padding: 0.75rem;
+    background: rgba(13, 20, 35, 0.8);
+    border: 1px solid var(--border-color);
+    border-radius: 1px;
+    color: var(--text-primary);
+    transition: var(--transition);
+    font-family: 'Rajdhani', sans-serif;
+}
+
+.quest-form input:focus,
+.quest-form textarea:focus,
+.quest-form select:focus {
+    border-color: var(--secondary-color);
+    box-shadow: var(--border-glow);
+    outline: none;
+    background: rgba(13, 20, 35, 0.9);
+}
+
+.description-header {
+    display: grid;
+    grid-template-columns: auto 1fr auto;  /* Label - space - button */
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+/* Ensure label doesn't wrap and maintains its size */
+.description-header label {
+    white-space: nowrap;
+}
+
+/* Keep the button compact */
+.suggest-btn {
+    height: 24px;
+    padding: 0 0.5rem;
+    font-size: 0.7rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    background: rgba(77, 127, 255, 0.1);
+    color: var(--secondary-color);
+    border: 1px solid var(--border-color);
+    border-radius: 1px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 600;
+    font-family: 'Rajdhani', sans-serif;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.suggest-btn:hover {
+    background: rgba(77, 127, 255, 0.2);
+    border-color: var(--secondary-color);
+    box-shadow: var(--border-glow);
+}
+
+.suggest-btn svg {
+    width: 12px;
+    height: 12px;
+    stroke: currentColor;
+    stroke-width: 2;
+}
+
+.stats-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.form-actions {
+    display: flex;
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.btn-primary {
+    flex: 2;
+    padding: 0.75rem;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: var(--text-primary);
+    border: none;
+    border-radius: 1px;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: var(--transition);
+    font-weight: 600;
+}
+
+.btn-secondary {
+    flex: 1;
+    padding: 0.75rem;
+    background: rgba(77, 127, 255, 0.1);
+    border: 1px solid var(--border-color);
+    border-radius: 1px;
+    color: var(--text-primary);
+    text-decoration: none;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: var(--transition);
+    font-weight: 600;
+}
+
+.btn-primary:hover,
+.btn-secondary:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--border-glow);
+    border-color: var(--secondary-color);
+}
+
+.btn-secondary:hover {
+    background: rgba(77, 127, 255, 0.2);
+}
+
+@media (max-width: 768px) {
+    .content {
+        margin-left: 0;
+        padding: 1rem;
+    }
+    
+    .stats-row {
+        grid-template-columns: 1fr;
+    }
+    
+    .form-actions {
+        flex-direction: column;
+    }
+    
+    .btn-primary,
+    .btn-secondary {
+        width: 100%;
+    }
+    
+    .quest-header,
+    .form-container {
+        padding: 1rem;
+    }
+}
+/* add quest styles [end] */
+
+/* Responsive Adjustments */
+@media (max-width: 1024px) {
+    .stats-overview {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .quest-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .main-content {
+        margin-left: 0;
+        padding: 1rem;
+    }
+    
+    .stats-overview,
+    .quest-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .dashboard-header,
+    .quests-section,
+    .completed-quests {
+        padding: 1rem;
+    }
+}

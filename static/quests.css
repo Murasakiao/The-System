@@ -1,0 +1,292 @@
+/* Quest Section Containers */
+.quests-section,
+.completed-quests {
+    background: var(--sidebar-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 1px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    backdrop-filter: blur(10px);
+}
+
+.quests-section h2,
+.completed-quests h2 {
+    color: var(--text-primary);
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 0.5rem;
+}
+
+/* Quest Grids */
+.quest-grid-active {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+}
+
+.quest-grid-completed {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+/* Quest Cards */
+.quest-card {
+    background: rgba(13, 20, 35, 0.8);
+    border: 1px solid var(--border-color);
+    border-radius: 1px;
+    padding: 1.5rem;
+    transition: var(--transition);
+    backdrop-filter: blur(5px);
+    display: flex;
+    flex-direction: column;
+}
+
+.quest-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--secondary-color);
+    box-shadow: var(--border-glow);
+}
+
+.quest-card h3 {
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+}
+
+.quest-card p {
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+    flex-grow: 1;
+}
+
+.quest-card.completed {
+    opacity: 0.8;
+}
+
+/* Quest Items */
+.quest-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 1.2px;
+    transition: all 0.2s ease;
+}
+
+.quest-item:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.quest-item.completed {
+    opacity: 0.8;
+}
+
+.quest-name {
+    font-size: 1rem;
+    color: #e6edf3;
+}
+
+.quest-space {
+    padding: 1.5rem 0;
+}
+
+/* Quest Target */
+.quest-target {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    margin-right: 1rem;
+}
+
+.target-number {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #58a6ff;
+}
+
+.target-unit {
+    font-size: 0.75rem;
+    color: #8b949e;
+    display: inline-flex;
+    align-items: center;
+    margin-right: 0.01rem;  /* Add space between target unit and complete button */
+}
+
+.complete-form {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;  /* Adds consistent spacing between elements */
+}
+
+/* Add this new class to group the target unit and complete button */
+.quest-actions {
+    display: flex;
+    align-items: center;
+}
+
+/* Complete Button */
+.complete-button {
+    background: transparent;
+    border: none;
+    color: #58a6ff;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 0.5px;
+    transition: all 0.2s ease;
+}
+
+.complete-button:hover {
+    background-color: rgba(88, 166, 255, 0.1);
+}
+
+.complete-button:disabled {
+    cursor: default;
+    opacity: 0.8;
+}
+
+.complete-button svg {
+    width: 20px;
+    height: 20px;
+    stroke: #8b949e;
+    display: block;
+}
+
+/* Quest Footer */
+.daily-quest-footer,
+.quest-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.daily-quest-footer {
+    margin-top: 5.5rem;
+    padding-top: 1rem;
+}
+
+/* Button Groups */
+.button-group {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.form-inline {
+    display: inline-block;
+    margin: 0;
+}
+
+/* Rest of the CSS remains the same */
+.reward {
+    color: var(--success-color);
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.btn-complete {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    border: none;
+    border-radius: 2.25px;
+    padding: 0.5rem 1rem;
+    color: var(--text-primary);
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.btn-complete:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px rgba(77, 127, 255, 0.3);
+}
+
+.completed-badge {
+    background: var(--success-color);
+    color: var(--background-color);
+    padding: 0.25rem 0.75rem;
+    border-radius: 1px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.warning-message {
+    font-size: 0.875rem;
+    color: #8b949e;
+}
+
+.warning-label {
+    color: #ab1414;
+    font-weight: 600;
+}
+
+.no-quests {
+    color: var(--text-secondary);
+    text-align: center;
+    padding: 2rem;
+    background: rgba(13, 20, 35, 0.5);
+    border-radius: 1px;
+    border: 1px dashed var(--border-color);
+}
+
+.no-quests a {
+    color: var(--secondary-color);
+    text-decoration: none;
+    font-weight: 600;
+    transition: var(--transition);
+}
+
+.no-quests a:hover {
+    text-shadow: 0 0 10px var(--secondary-color);
+}
+
+.btn-delete {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: var(--text-secondary);
+    text-decoration: none;
+    padding: 0.75rem;
+    border-radius: 1px;
+    transition: var(--transition);
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-delete:hover {
+    background: rgba(255, 68, 68, 0.1);
+    color: var(--danger-color);
+}
+
+.btn-delete svg {
+    width: 15px;
+    height: 15px;
+    stroke: currentColor;
+}
+
+.quest-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.tag {
+    background-color: #7c8797;
+    opacity: 0.8;
+    color: #fefeff;
+    padding: 0.05rem 0.5rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    display: inline-block;
+}

@@ -1,0 +1,171 @@
+{% extends "base.html" %}
+{% block title %}Add Quest - Solo Leveling{% endblock %}
+
+{% block content %}
+<div class="content">
+    <div class="form-container">
+        <div class="quest-header">
+            <h2>Create New Quest</h2>
+            <div class="cyber-line"></div>
+        </div>
+        
+        <form action="{{ url_for('add_quest') }}" method="POST" class="quest-form">
+            <!-- Quest Name Field -->
+            <div class="form-group">
+                <label for="name">Quest Name</label>
+                <input type="text" 
+                       id="name" 
+                       name="name" 
+                       required
+                       placeholder="Enter quest designation">
+            </div>
+
+            <!-- Description Field -->
+            <div class="form-group">
+                <div class="description-header">
+                    <label for="description">Mission Parameters</label>
+                    <button type="button"
+                            class="btn-secondary suggest-btn"
+                            onclick="generateSuggestedDescription()">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M12 2v4m0 12v4M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83M2 12h4m12 0h4M4.93 19.07l2.83-2.83m8.48-8.48l2.83-2.83"/>
+                        </svg>
+                        Generate Description
+                    </button>
+                </div>
+                <textarea id="description"
+                          name="description"
+                          rows="8"
+                          placeholder="Define mission objectives and parameters..."></textarea>
+            </div>
+
+            <!-- Stats Row -->
+            <div class="stats-row">
+                <!-- Tags -->
+                <div class="form-group">
+                    <label for="tags">Tags</label>
+                    <div class="tags-input-container">
+                        <input type="text" 
+                            name="tags[]"
+                            id="tags-input" 
+                            placeholder="e.g., coding, study, fitness"
+                            class="form-input" multiple>
+                        <div id="tags-container" class="tags-container"></div>
+                        <input type="hidden" id="tags" name="tags[]">
+                    </div>
+                </div>
+
+                <!-- Reward Points Field -->
+                <div class="form-group">
+                    <label for="reward">Reward Points</label>
+                    <input type="number" 
+                           id="reward" 
+                           name="reward" 
+                           required
+                           min="1" 
+                           value="10" 
+                           placeholder="Enter reward value">
+                </div>
+
+                <!-- Duration -->
+                <div class="form-group">
+                    <label for="duration">Duration (minutes)</label>
+                    <input type="number" 
+                        id="duration" 
+                        name="duration" 
+                        value="30" 
+                        required 
+                        min="1"
+                        class="form-input">
+                </div>
+
+                <!-- Difficulty Level Dropdown -->
+                <div class="form-group">
+                    <label for="difficulty">Difficulty Rating</label>
+                    <select id="difficulty" name="difficulty">
+                        <option value="Easy">Easy</option>
+                        <option value="Medium" selected>Medium</option>
+                        <option value="Hard">Hard</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Priority
+            <div class="form-group">
+                <label for="priority">Priority *</label>
+                <select id="priority" 
+                        name="priority" 
+                        required
+                        class="form-input">
+                    <option value="1">Low (1)</option>
+                    <option value="2">Medium-Low (2)</option>
+                    <option value="3">Medium (3)</option>
+                    <option value="4">Medium-High (4)</option>
+                    <option value="5">High (5)</option>
+                </select>
+            </div>
+
+            Due Date
+            <div class="form-group">
+                <label for="due_date">Due Date</label>
+                <input type="datetime-local" 
+                    id="due_date" 
+                    name="due_date"
+                    class="form-input">
+            </div> -->
+
+            <!-- Form Actions -->
+            <div class="form-actions">
+                <button type="submit" class="btn-primary">Initialize Quest</button>
+                <a href="{{ url_for('dashboard') }}" class="btn-secondary">Cancel Operation</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<style>
+
+</style>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    function generateSuggestedDescription() {
+        const questTitle = document.getElementById('name').value;
+        const suggestBtn = document.querySelector('.suggest-btn');
+        const originalText = suggestBtn.textContent;
+        
+        if (!questTitle) {
+            alert('Please enter a quest name first');
+            return;
+        }
+
+        // Update button state
+        suggestBtn.disabled = true;
+        suggestBtn.textContent = 'Generating...';
+        suggestBtn.style.opacity = '0.7';
+
+        fetch('/suggest_description', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ questTitle: questTitle })
+        })
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('description').value = data.suggestedDescription;
+        })
+        .catch(error => {
+            console.error('Error suggesting description:', error);
+            alert('Generation failed. Please try again.');
+        })
+        .finally(() => {
+            // Restore button state
+            suggestBtn.disabled = false;
+            suggestBtn.textContent = originalText;
+            suggestBtn.style.opacity = '1';
+        });
+    }
+</script>
+{% endblock %}

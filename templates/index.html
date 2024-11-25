@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quest Master - Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <nav class="sidebar">
+            <div class="user-profile">
+                <div class="avatar">{{ user.username[0] }}</div>
+                <h3>{{ user.username }}</h3>
+                <div class="level">Level {{ user.level }}</div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="{{ url_for('dashboard') }}" class="active">Dashboard</a></li>
+                <li><a href="{{ url_for('add_quest') }}">Add Quest</a></li>
+                <li><a href="#achievements">Achievements</a></li>
+                <li><a href="#statistics">Statistics</a></li>
+            </ul>
+        </nav>
+        
+        <main class="content">
+            <header class="dashboard-header">
+                <div class="stats-overview">
+                    <div class="stat-card">
+                        <h4>Points</h4>
+                        <p>{{ user.points }}</p>
+                    </div>
+                    <div class="stat-card">
+                        <h4>Current Streak</h4>
+                        <p>{{ stats.current_streak }} days</p>
+                    </div>
+                    <div class="stat-card">
+                        <h4>Completed Quests</h4>
+                        <p>{{ stats.total_completed }}</p>
+                    </div>
+                </div>
+            </header>
+
+            <section class="quests-section">
+                <div class="section-header">
+                    <h2>Active Quests</h2>
+                    <button onclick="window.location.href='{{ url_for('add_quest') }}'" class="btn-primary">Add New Quest</button>
+                </div>
+                
+                <div class="quest-grid">
+                    {% for quest in active_quests %}
+                    <div class="quest-card {{ quest.difficulty.lower() }}">
+                        <div class="quest-header">
+                            <h3>{{ quest.name }}</h3>
+                            <span class="badge">{{ quest.difficulty }}</span>
+                        </div>
+                        <p>{{ quest.description }}</p>
+                        <div class="quest-footer">
+                            <span class="reward">+{{ quest.reward }} points</span>
+                            <form action="{{ url_for('complete_quest', quest_id=quest.id) }}" method="post">
+                                <button type="submit" class="btn-complete">Complete</button>
+                            </form>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </section>
+
+            <section class="achievements-section">
+                <h2>Recent Achievements</h2>
+                <div class="achievements-grid">
+                    {% for achievement in user.achievements|slice(-3, None) %}
+                    <div class="achievement-card">
+                        <div class="achievement-icon">🏆</div>
+                        <h4>{{ achievement.name }}</h4>
+                        <p>{{ achievement.description }}</p>
+                    </div>
+                    {% endfor %}
+                </div>
+            </section>
+
+            <section class="progress-section">
+                <h2>Weekly Progress</h2>
+                <canvas id="progressChart"></canvas>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        // Convert points_this_week data to JSON format for use in Chart.js
+        const pointsData = JSON.parse('{{ stats.points_this_week | tojson }}');
+
+        // Initialize progress chart
+        const ctx = document.getElementById('progressChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                datasets: [{
+                    label: 'Points Earned',
+                    data: pointsData,
+                    borderColor: '#4CAF50',
+                    tension: 0.1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
