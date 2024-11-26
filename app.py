@@ -11,9 +11,10 @@ import google.generativeai as genai
 # from transformers import GPT2LMHeadModel, GPT2Tokenizer
 # from transformers import AutoModelForQuestionAnswering, AutoTokenizer, pipeline
 
+basedir = os.path.abspath(os.path.dirname(__file__))
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.getenv("GEMINI_API_KEY")
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///tasks.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'data/tasks.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
