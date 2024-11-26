@@ -927,6 +927,13 @@ def init_db():
             db.session.add(default_user)
             db.session.commit()
 
+def init_app(app):
+    with app.app_context():
+        db.create_all()
+        init_db()
+
 if __name__ == '__main__':
-    init_db()
+    init_app(app)
     app.run(debug=True)
+else:
+    init_app(app)
