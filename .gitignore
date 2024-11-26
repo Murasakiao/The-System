@@ -17,4 +17,4 @@ Thumbs.db
 *.log
 *.tmp
 
-instance/
+instance/task.db

@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: the-system
+    env: python
+    buildCommand: "pip install -r requirements.txt"
+    envVars:
+      - key: FLASK_APP
+        value: app
+      - key: FLASK_ENV
+        value: production
+    autoDeploy: true
