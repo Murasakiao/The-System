@@ -24,8 +24,6 @@ load_dotenv()
 
 # Retrieve the API key
 api_key = os.getenv("GEMINI_API_KEY")
-
-# Configure the Google Generative AI library
 genai.configure(api_key=api_key)
 
 # Load the pre-trained GPT-2 model and tokenizer
