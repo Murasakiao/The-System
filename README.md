@@ -21,8 +21,8 @@ Follow these steps to set up **The System** on your local machine:
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/yourusername/taskmaster.git
-cd taskmaster
+git clone https://github.com/Murasakiao/the-system.git
+cd the-system
 ```
 
 ### 2. Create a Virtual Environment
